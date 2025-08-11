@@ -8,7 +8,7 @@ import cloudinary from "../lib/cloudinary.js"
 
 
 
-export const signup = async () =>{
+export const signup = async (req, res) =>{
     const { fullName, email, password, bio } = req.body;
 
     try{
@@ -23,7 +23,7 @@ export const signup = async () =>{
         }
 
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bycrpt.hash(password, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = await User.create({
             fullName, email, password: hashedPassword, bio
@@ -81,7 +81,7 @@ export const updateProfile = async (req, res)=>{
         let updatedUser;
 
         if(!profilePic){
-           updatedUser = await User.findByIdAndUpdate(userId, {bio, fullName}, {new: true})
+           updatedUser = await User.findByIdAndUpdate(userId, {bio, fullName}, {new: true});
         }else{
             const upload = await cloudinary.uploader.upload(profilePic);
 
