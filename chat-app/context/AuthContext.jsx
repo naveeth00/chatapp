@@ -1,4 +1,4 @@
-import { Children, createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from 'axios'; 
 import toast from "react-hot-toast";
 import  { io } from "socket.io-client"
@@ -117,7 +117,7 @@ export const AuthProvider = ({ children })=>{
 
     return (
         <AuthContext.Provider value={value}>
-            {children}
+            { children }
         </AuthContext.Provider>
     )
 }

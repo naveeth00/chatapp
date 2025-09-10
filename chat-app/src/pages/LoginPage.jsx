@@ -6,7 +6,7 @@ const LoginPage = () => {
 
     const [currState, setCurrState] = useState("Sign up")
     const [fullName, setFullName] = useState("")
-    const [email, setEmail ] = useState(" ")
+    const [email, setEmail ] = useState("")
     const [password, setPassword] = useState("")
     const [bio, setBio] = useState("")
     const [isDataSubmitted, setIsDataSubmitted] = useState(false);

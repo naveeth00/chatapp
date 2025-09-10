@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useRef } from 'react'
-import assets, { messagesDummyData } from '../assets/assets'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import assets from '../assets/assets'
 import { formatMessageTime } from '../lib/Utils'
 import { ChatContext } from '../../context/ChatContext'
 import { AuthContext } from '../../context/AuthContext'
+import toast from "react-hot-toast";
+
 
 const ChatContainer = () => {
 
@@ -69,7 +71,8 @@ const ChatContainer = () => {
       {/* -------- chat area -------*/}
       <div className='flex flex-col h-[calc(100%-120px)] overflow-y-scroll p-3 pb-6'>
         {messages.map((msg, index)=>(
-          <div key={index} className={`flex items-end gap-2 justify-end ${msg.
+          <div key={index} 
+          className={`flex items-end gap-2 justify-end ${msg.
             senderId !== authUser._id && 'flex-row-reverse'
           }`}>
             {msg.image ? (

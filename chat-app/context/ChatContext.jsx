@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 import toast from "react-hot-toast";
 
@@ -32,7 +32,7 @@ export const ChatProvider = ({ children })=>{
 
     const getMessages = async (userId)=>{
         try{
-            const { data } = await axios.get('/api/messages/${userId}');
+            const { data } = await axios.get(`/api/messages/${userId}`);
             if (data.success){
                 setMessages(data.messages)                
             }
@@ -46,12 +46,11 @@ export const ChatProvider = ({ children })=>{
 
     const sendMessage = async (messageData)=>{
         try{
-            const { data } = await axios.post(`/api/messages/send/${selectedUser._id}
-            `, messageData);
+            const { data } = await axios.post(`/api/messages/send/${selectedUser._id}`, messageData);
             if(data.success){
                 setMessages((prevMessages)=>[...prevMessages, data.newMessage])
             }else{
-                toast.error(data.messsage);
+                toast.error(data.message);
             }    
 
         }catch(error){
@@ -66,7 +65,7 @@ export const ChatProvider = ({ children })=>{
         if(!socket) return;
 
         socket.on("newMessage", (newMessage)=>{
-            if(selectedUser && newMessage.ssenderId === selectedUser._id){
+            if(selectedUser && newMessage.senderId === selectedUser._id){
                 newMessage.seen = true;
                 setMessages((prevMessages)=> [...prevMessages, newMessage]);
                 axios.put(`/api/messages/mark/${newMessage._id}`);
